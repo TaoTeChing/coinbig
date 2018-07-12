@@ -49,7 +49,7 @@ class CoinBig {
    * @return {[type]} [description]
    */
     userinfo() {
-      let params = { apikey: this.apiKey }
+      let params = { apikey: this.apiKey, time: new Date().getTime()}
       let fromData = this.sign(params)
       return instance.post('/api/publics/v1/userinfo', fromData).then(res => res.data)
     }
@@ -59,7 +59,7 @@ class CoinBig {
    * @type {CoinBig}
    */
     trades_info(symbol, since = 60) {
-     let params = { symbol, since, apikey: this.apiKey }
+     let params = { symbol, since, apikey: this.apiKey ,time: new Date().getTime()}
      let fromData = this.sign(params)
      return instance.post('/api/publics/v1/trades', fromData).then(res => res.data)
     }
@@ -68,8 +68,8 @@ class CoinBig {
     * 获取所有订单信息
     * @type {CoinBig}
     */
-    orders_info(symbol, trade_type, size = 50 ) {
-      let params = { symbol, trade_type, size, apikey: this.apiKey }
+    orders_info(symbol, trade_type = 1, size = 50 ) {
+      let params = { symbol, trade_type, size, apikey: this.apiKey, time: new Date().getTime()}
       let fromData = this.sign(params)
       return instance.post('/api/publics/v1/orders_info', fromData).then(res => res.data)
     }
@@ -79,7 +79,7 @@ class CoinBig {
     * @type {CoinBig}
     */
     cancel_order(order_id) {
-     let params = { order_id, apikey: this.apiKey }
+     let params = { order_id, apikey: this.apiKey, time: new Date().getTime()}
      let fromData = this.sign(params)
      return instance.post('/api/publics/v1/cancel_order', fromData).then(res => res.data)
     }
@@ -90,7 +90,7 @@ class CoinBig {
     * @type {CoinBig}
     */
     userinfo_by_symbol(symbol, shortName = 'btc') {
-     let params = { symbol, shortName, apikey: this.apiKey }
+     let params = { symbol, shortName, apikey: this.apiKey, time: new Date().getTime()}
      let fromData = this.sign(params)
      return instance.post('/api/publics/v1/userinfoBySymbol', fromData).then(res => res.data)
     }
@@ -108,7 +108,9 @@ class CoinBig {
     * @type {CoinBig}
     */
     trade(symbol, type, price, amount) {
-      let params = { symbol, type, price, amount, apikey: this.apiKey }
+      console.log(symbol, type, price, amount);
+      
+      let params = { symbol, type, price, amount, apikey: this.apiKey, time: new Date().getTime()}
       let fromData = this.sign(params)
       return instance.post('/api/publics/v1/trade', fromData).then(res => res.data)
     }
